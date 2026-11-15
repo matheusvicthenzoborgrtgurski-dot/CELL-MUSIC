@@ -8,20 +8,20 @@
 body {
     background: #080b14;
     color: #ffffff;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #app {
     width: 100%;
     min-height: 100vh;
-    background: #080b14;
+    overflow: hidden;
 }
 
 .top {
-    height: 75px;
-    padding: 24px 5%;
-    border-bottom: 1px solid #20283b;
-    background: #0d1220;
+    width: 100%;
+    padding: 25px 5%;
+    border-bottom: 1px solid #202b3c;
+    overflow: hidden;
 }
 
 .logo {
@@ -38,9 +38,8 @@ body {
 .status {
     float: right;
     color: #28d7ff;
-    font-size: 11px;
+    font-size: 12px;
     margin-top: 8px;
-    letter-spacing: 1px;
 }
 
 main {
@@ -66,29 +65,28 @@ main {
 }
 
 .description {
-    color: #929db3;
-    font-size: 15px;
+    color: #9ba9bd;
+    line-height: 1.6;
 }
 
 .player {
-    background: #121a2b;
-    border: 1px solid #26334d;
-    border-radius: 12px;
+    background: #111a2a;
+    border: 1px solid #24354c;
+    border-radius: 14px;
     padding: 25px;
-    min-height: 175px;
     overflow: hidden;
 }
 
 .cover {
-    float: left;
-    width: 105px;
-    height: 105px;
-    background: #172e48;
+    width: 115px;
+    height: 115px;
+    background: #142e43;
     border: 1px solid #28d7ff;
-    border-radius: 8px;
+    border-radius: 10px;
+    float: left;
     text-align: center;
-    line-height: 105px;
-    margin-right: 25px;
+    line-height: 115px;
+    margin-right: 22px;
 }
 
 .cover span {
@@ -97,88 +95,178 @@ main {
 }
 
 .track-info {
-    padding-top: 10px;
+    padding-top: 15px;
 }
 
 .track-info h2 {
-    font-size: 19px;
+    font-size: 20px;
     margin-bottom: 8px;
+    overflow-wrap: break-word;
 }
 
 .track-info p {
-    color: #929db3;
+    color: #9ba9bd;
     font-size: 13px;
 }
 
 .controls {
-    margin-top: 17px;
+    clear: both;
+    text-align: center;
+    padding-top: 25px;
 }
 
 .controls button {
-    background: #202d43;
-    color: #ffffff;
-    border: 1px solid #344966;
-    border-radius: 6px;
-    padding: 9px 17px;
-    margin-right: 7px;
-    font-size: 15px;
+    background: #1b2b40;
+    color: white;
+    border: 1px solid #344b65;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin: 0 7px;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.controls button#play {
-    background: #087da5;
-    border-color: #28d7ff;
+.controls button:focus,
+.controls button:hover {
+    background: #28d7ff;
+    color: #080b14;
+}
+
+#play {
+    background: #28d7ff;
+    color: #080b14;
 }
 
 .progress {
-    clear: both;
-    height: 4px;
-    background: #29364b;
-    margin-top: 25px;
+    height: 5px;
+    background: #29394d;
     border-radius: 5px;
+    margin-top: 25px;
+    overflow: hidden;
 }
 
 .progress-line {
-    width: 0;
-    height: 4px;
+    width: 0%;
+    height: 5px;
     background: #28d7ff;
 }
 
-.menu {
-    margin-top: 40px;
+.audio-player {
+    margin-top: 18px;
 }
 
+.audio-player audio {
+    width: 100%;
+}
+
+.library {
+    margin-top: 45px;
+}
+
+.library h2,
 .menu h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.upload-area {
+    margin: 22px 0;
+}
+
+.upload-button {
+    display: inline-block;
+    background: #28d7ff;
+    color: #080b14;
+    padding: 15px 22px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#musicFile {
+    display: block;
+    margin-top: 15px;
+    color: #ffffff;
+    max-width: 100%;
+}
+
+#playlist {
+    margin-top: 20px;
+}
+
+.empty-message {
+    color: #718197;
+    padding: 20px;
+    background: #111a2a;
+    border-radius: 8px;
+}
+
+.playlist-item {
+    background: #111a2a;
+    border: 1px solid #24354c;
+    padding: 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.playlist-item.selected {
+    border-color: #28d7ff;
+    color: #28d7ff;
+}
+
+.menu {
+    margin: 45px 0;
+}
+
+.menu-items {
+    margin-top: 18px;
 }
 
 .menu-item {
     display: inline-block;
-    width: 23%;
-    min-height: 75px;
-    padding: 25px 12px;
-    margin: 0 1% 12px 0;
-    background: #121a2b;
-    border: 1px solid #26334d;
+    background: #111a2a;
+    border: 1px solid #24354c;
+    padding: 15px 20px;
+    margin: 5px;
     border-radius: 8px;
-    color: #b9c6dc;
-    text-align: center;
-    font-size: 14px;
+    color: #aebbd0;
 }
 
 .menu-item.selected {
-    border: 1px solid #28d7ff;
     color: #28d7ff;
-    background: #14283b;
+    border-color: #28d7ff;
 }
 
 footer {
-    margin-top: 55px;
-    padding: 22px;
-    border-top: 1px solid #20283b;
-    color: #65728a;
+    border-top: 1px solid #202b3c;
     text-align: center;
-    font-size: 10px;
+    padding: 25px 10px;
+    color: #718197;
+    font-size: 11px;
     letter-spacing: 2px;
+    margin-top: 40px;
+}
+
+@media screen and (max-width: 600px) {
+    .welcome h1 {
+        font-size: 29px;
+    }
+
+    .cover {
+        width: 85px;
+        height: 85px;
+        line-height: 85px;
+    }
+
+    .cover span {
+        font-size: 42px;
+    }
+
+    .controls button {
+        padding: 10px 14px;
+        margin: 0 3px;
+    }
 }
