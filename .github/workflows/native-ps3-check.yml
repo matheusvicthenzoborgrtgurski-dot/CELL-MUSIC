@@ -22,7 +22,8 @@ jobs:
           set -euo pipefail
           URL="https://github.com/ps3dev/ps3dev/releases/download/nightly-2026-07-26/ps3dev-linux-X64.tar.gz"
           curl --fail --location --retry 3 "$URL" -o "$RUNNER_TEMP/ps3dev-linux-X64.tar.gz"
-          tar -tzf "$RUNNER_TEMP/ps3dev-linux-X64.tar.gz" | head -n 25
+          echo "Primeiros arquivos do pacote:"
+          tar -tzf "$RUNNER_TEMP/ps3dev-linux-X64.tar.gz" | sed -n '1,25p'
           mkdir -p "$HOME"
           tar -xzf "$RUNNER_TEMP/ps3dev-linux-X64.tar.gz" -C "$HOME"
 
@@ -42,7 +43,7 @@ jobs:
           if [ -z "$RULES" ]; then
             echo "::error::Regras ppu_rules do PSL1GHT nao encontradas."
             echo "Conteudo encontrado em PS3DEV:"
-            find "$PS3DEV" -maxdepth 3 -type d | head -n 80
+            find "$PS3DEV" -maxdepth 3 -type d | sed -n '1,80p'
             exit 1
           fi
 
