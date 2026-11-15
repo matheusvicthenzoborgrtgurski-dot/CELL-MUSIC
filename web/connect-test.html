@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CELL MUSIC CONNECT - Teste</title>
+<style>
+body{margin:0;padding:22px;background:#090909;color:#eee;font-family:Arial,sans-serif}
+h1{color:#ff3030;font-size:25px}
+p{color:#bbb;line-height:1.5}
+.item{padding:13px;margin:9px 0;background:#191919;border-left:4px solid #555;border-radius:5px}
+.ok{border-color:#25c76a}.no{border-color:#ff4545}
+.name{font-weight:bold}.value{float:right}
+small{color:#999}
+</style>
+</head>
+<body>
+<h1>CELL MUSIC CONNECT</h1>
+<p>Diagnóstico de compatibilidade do navegador do PS3.</p>
+<div id="results">Verificando...</div>
+<p><small>Este teste não altera o player CELL MUSIC.</small></p>
+<script>
+(function(){
+var tests=[
+["JavaScript básico",typeof document!=="undefined"],
+["XMLHttpRequest",typeof XMLHttpRequest!=="undefined"],
+["WebSocket",typeof WebSocket!=="undefined"],
+["Fetch",typeof window.fetch==="function"],
+["Local Storage",typeof window.localStorage!=="undefined"],
+["Audio HTML5",!!document.createElement("audio").canPlayType],
+["PostMessage",typeof window.postMessage==="function"],
+["JSON",typeof JSON!=="undefined" && typeof JSON.parse==="function"]
+];
+var out=document.getElementById("results");
+out.innerHTML="";
+for(var i=0;i<tests.length;i++){
+var d=document.createElement("div");
+d.className="item "+(tests[i][1]?"ok":"no");
+var n=document.createElement("span");
+n.className="name";
+n.appendChild(document.createTextNode(tests[i][0]));
+var v=document.createElement("span");
+v.className="value";
+v.appendChild(document.createTextNode(tests[i][1]?"DISPONÍVEL":"NÃO DISPONÍVEL"));
+d.appendChild(n);
+d.appendChild(v);
+out.appendChild(d);
+}
+})();
+</script>
+</body>
+</html>
