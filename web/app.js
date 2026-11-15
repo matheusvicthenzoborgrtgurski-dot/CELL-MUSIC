@@ -33,9 +33,9 @@
         if (playlist.length === 0) {
             var empty = document.createElement("p");
             empty.className = "empty-message";
-            empty.appendChild(
-                document.createTextNode("Sua biblioteca está vazia.")
-            );
+            empty.appendChild(document.createTextNode(
+                "Sua biblioteca está vazia."
+            ));
             playlistElement.appendChild(empty);
             return;
         }
@@ -48,10 +48,7 @@
                 item.className += " selected";
             }
 
-            item.appendChild(
-                document.createTextNode(playlist[i].name)
-            );
-
+            item.appendChild(document.createTextNode(playlist[i].name));
             item.setAttribute("data-index", i);
 
             item.onclick = function () {
@@ -69,17 +66,17 @@
 
         if (typeof URL === "undefined" ||
             typeof URL.createObjectURL !== "function") {
-            status.innerHTML = "ARQUIVO NAO SUPORTADO";
-            trackDescription.innerHTML = "Este navegador não suporta arquivos locais.";
+            status.innerHTML = "RECURSO INDISPONIVEL";
+            trackDescription.innerHTML =
+                "Este navegador não consegue abrir arquivos locais.";
             return;
         }
-
-        currentIndex = index;
 
         if (currentURL) {
             URL.revokeObjectURL(currentURL);
         }
 
+        currentIndex = index;
         currentURL = URL.createObjectURL(playlist[index]);
 
         audio.src = currentURL;
@@ -89,22 +86,19 @@
         trackDescription.innerHTML = "CELL MUSIC • Arquivo local";
 
         progressLine.style.width = "0%";
-
         updatePlaylist();
+
         audio.play();
     }
 
-    fileInput.addEventListener("change", function () {
+    fileInput.onchange = function () {
         playlist = [];
         currentIndex = -1;
 
         var files = fileInput.files;
 
         for (var i = 0; i < files.length; i++) {
-            if (!files[i].type ||
-                files[i].type.indexOf("audio/") === 0) {
-                playlist.push(files[i]);
-            }
+            playlist.push(files[i]);
         }
 
         updatePlaylist();
@@ -113,10 +107,10 @@
             playTrack(0);
         } else {
             trackTitle.innerHTML = "Nenhuma música";
-            trackDescription.innerHTML = "Selecione um arquivo de áudio";
+            trackDescription.innerHTML = "Selecione uma música";
             status.innerHTML = "BIBLIOTECA VAZIA";
         }
-    });
+    };
 
     playButton.onclick = function () {
         if (playlist.length === 0) {
@@ -158,14 +152,13 @@
     audio.addEventListener("play", updateStatus);
     audio.addEventListener("pause", updateStatus);
 
+    audio.addEventListener("loadedmetadata", function () {
+        status.innerHTML = "MUSICA CARREGADA";
+    });
+
     audio.addEventListener("ended", function () {
         if (playlist.length > 1) {
-            var next = currentIndex + 1;
-
-            if (next >= playlist.length) {
-                next = 0;
-            }
-
+            var next = (currentIndex + 1) % playlist.length;
             playTrack(next);
         } else {
             updateStatus();
@@ -183,6 +176,8 @@
 
     audio.addEventListener("error", function () {
         status.innerHTML = "ERRO NO AUDIO";
+        trackDescription.innerHTML =
+            "Não foi possível reproduzir este arquivo.";
     });
 
     updatePlaylist();
