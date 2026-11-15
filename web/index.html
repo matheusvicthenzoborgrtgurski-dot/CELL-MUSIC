@@ -4,81 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080b14">
     <title>CELL MUSIC</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+<div id="app">
 
-    <div id="app">
+    <header class="top">
+        <div class="logo">CELL <span>MUSIC</span></div>
+        <div class="status">PLAYER OFFLINE</div>
+    </header>
 
-        <header class="top">
-            <div class="logo">CELL <span>MUSIC</span></div>
-            <div class="status">PLAYER OFFLINE</div>
-        </header>
+    <main>
 
-        <main>
-            <section class="welcome">
-                <p class="small-title">SEU UNIVERSO MUSICAL</p>
-                <h1>O som começa aqui.</h1>
-                <p class="description">
-                    Uma nova experiência musical para o seu PlayStation 3.
+        <section class="welcome">
+            <p class="small-title">SEU UNIVERSO MUSICAL</p>
+            <h1>O som começa aqui.</h1>
+            <p class="description">
+                Sua experiência musical começa no CELL MUSIC.
+            </p>
+        </section>
+
+        <section class="player">
+
+            <div class="cover">
+                <span>♪</span>
+            </div>
+
+            <div class="track-info">
+                <h2>Nenhuma música</h2>
+                <p>Escolha uma música para começar</p>
+            </div>
+
+            <div class="controls">
+                <button type="button" id="previous">|◀</button>
+                <button type="button" id="play">▶</button>
+                <button type="button" id="next">▶|</button>
+            </div>
+
+            <div class="progress">
+                <div class="progress-line"></div>
+            </div>
+
+            <div class="audio-player">
+                <audio id="audioPlayer" controls>
+                    Seu navegador não suporta áudio.
+                </audio>
+            </div>
+
+        </section>
+
+        <section class="library">
+
+            <h2>Minha biblioteca</h2>
+
+            <p class="description">
+                Selecione suas músicas para começar a ouvir.
+            </p>
+
+            <div class="upload-area">
+                <label for="musicFile" class="upload-button">
+                    + ADICIONAR MÚSICAS
+                </label>
+
+                <input
+                    type="file"
+                    id="musicFile"
+                    accept="audio/*"
+                    multiple
+                >
+            </div>
+
+            <div id="playlist">
+                <p class="empty-message">
+                    Sua biblioteca está vazia.
                 </p>
-            </section>
+            </div>
 
-            <section class="player">
-                <div class="cover">
-                    <span>♪</span>
-                </div>
+        </section>
 
-                <div class="track-info">
-                    <h2>Nenhuma música</h2>
-                    <p>Escolha uma música para começar</p>
-                </div>
+        <section class="menu">
 
-                <div class="controls">
-                    <button type="button" id="previous">|◀</button>
-                    <button type="button" id="play">▶</button>
-                    <button type="button" id="next">▶|</button>
-                </div>
+            <h2>Explorar</h2>
 
-                <div class="progress">
-                    <div class="progress-line"></div>
-                </div>
-            </section>
+            <div class="menu-items">
+                <div class="menu-item selected">♫ Minha música</div>
+                <div class="menu-item">▣ Álbuns</div>
+                <div class="menu-item">◷ Recentes</div>
+                <div class="menu-item">⌕ Buscar</div>
+            </div>
 
-            <section class="menu">
-                <h2>Biblioteca</h2>
-                <div class="menu-items">
-                    <div class="menu-item selected">♫ Minha música</div>
-                    <div class="menu-item">▣ Álbuns</div>
-                    <div class="menu-item">◷ Recentes</div>
-                    <div class="menu-item">⌕ Buscar</div>
-                </div>
-            </section>
-        </main>
+        </section>
 
-<section class="library-upload">
-    <h2>Adicionar músicas</h2>
+    </main>
 
-    <p>Escolha uma música armazenada no seu dispositivo.</p>
+    <footer>
+        CELL MUSIC — SUA EXPERIÊNCIA MUSICAL
+    </footer>
 
-    <input
-        type="file"
-        id="musicFile"
-        accept="audio/*"
-    >
+</div>
 
-    <audio id="audioPlayer" controls>
-        Seu navegador não suporta reprodução de áudio.
-    </audio>
-</section>
-
-        <footer>
-            CELL MUSIC — PROJETO EM DESENVOLVIMENTO
-        </footer>
-
-    </div>
-
-    <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
