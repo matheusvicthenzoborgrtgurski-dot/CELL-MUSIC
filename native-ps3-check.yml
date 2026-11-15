@@ -1,0 +1,70 @@
+name: CELL MUSIC - Validar SDK PS3
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "native/**"
+      - ".github/workflows/native-ps3-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-ps3-sdk:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Baixar o SDK PS3DEV oficial (versao fixada)
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://github.com/ps3dev/ps3dev/releases/download/nightly-2026-07-26/ps3dev-linux-X64.tar.gz"
+          curl --fail --location --retry 3 "$URL" -o "$RUNNER_TEMP/ps3dev-linux-X64.tar.gz"
+          tar -tzf "$RUNNER_TEMP/ps3dev-linux-X64.tar.gz" | head -n 25
+          mkdir -p "$HOME"
+          tar -xzf "$RUNNER_TEMP/ps3dev-linux-X64.tar.gz" -C "$HOME"
+
+      - name: Verificar compilador PPU e regras PSL1GHT
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          COMPILER="$(find "$HOME" -type f \( -name 'powerpc64-ps3-elf-gcc' -o -name 'ppu-gcc' \) -print -quit)"
+          if [ -z "$COMPILER" ]; then
+            echo "::error::Compilador PPU nao encontrado no pacote PS3DEV."
+            exit 1
+          fi
+
+          PS3DEV="$(dirname "$(dirname "$(dirname "$COMPILER")")")"
+          RULES="$(find "$PS3DEV" -type f -name 'ppu_rules' -print -quit)"
+          if [ -z "$RULES" ]; then
+            echo "::error::Regras ppu_rules do PSL1GHT nao encontradas."
+            echo "Conteudo encontrado em PS3DEV:"
+            find "$PS3DEV" -maxdepth 3 -type d | head -n 80
+            exit 1
+          fi
+
+          PSL1GHT="$(dirname "$RULES")"
+          echo "PS3DEV=$PS3DEV" >> "$GITHUB_ENV"
+          echo "PSL1GHT=$PSL1GHT" >> "$GITHUB_ENV"
+          echo "PATH=$PS3DEV/bin:$PS3DEV/ppu/bin:$PS3DEV/spu/bin:$PATH" >> "$GITHUB_ENV"
+
+          echo "Compilador encontrado: $COMPILER"
+          "$COMPILER" --version
+          echo "Regras PSL1GHT encontradas: $RULES"
+          test -f "$PSL1GHT/ppu_rules"
+
+      - name: Registrar resultado da verificacao
+        shell: bash
+        run: |
+          {
+            echo "## CELL MUSIC Native - verificacao do ambiente"
+            echo ""
+            echo "- PS3DEV: encontrado"
+            echo "- Compilador PPU: encontrado"
+            echo "- Regras PSL1GHT: encontradas"
+            echo ""
+            echo "Esta etapa valida apenas o ambiente. Ainda nao compila o aplicativo nem gera PKG."
+          } >> "$GITHUB_STEP_SUMMARY"
